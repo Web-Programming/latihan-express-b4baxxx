@@ -15,3 +15,7 @@ mongoose.connection.on("eror", (error) => {
 mongoose.connection.on("disconnected", () => {
     console.log("Disconnected From Mongodb");
 });
+// ... your db connection
+//letakkan di dalam file db.js
+
+require("./mahasiswa");
