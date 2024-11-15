@@ -1,23 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { HousingLocation } from '../../housing-location';
+//import { HousingLocation } from '../housing-location';
 
-import { DetailsComponent } from './details.component';
+@Component({
+  selector: 'app-details',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <p>
+      details works {{ housingLocationId }}
+    </p>
+  `,
+  styleUrl: './details.component.css'
+})
+export class DetailsComponent {
+  route: ActivatedRoute = inject(ActivatedRoute);
+  housingLocationId = 0;
 
-describe('DetailsComponent', () => {
-  let component: DetailsComponent;
-  let fixture: ComponentFixture<DetailsComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [DetailsComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(DetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  constructor() {
+    this.housingLocationId = Number(this.route.snapshot.params['id'])
+  }
+}
