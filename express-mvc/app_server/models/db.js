@@ -1,21 +1,21 @@
 let mongoose = require("mongoose");
-let dbURI = "mongodb://localhost:27017/"
+let dbuRI = "mongodb://localhost:27017/pawII-si5c";
 
-mongoose.connect (dbURI, {
-    //useNewUrlParser: true
+mongoose.connect(dbuRI, {
+    //userNEWUrlParser: true
 });
-mongoose.connection.on ("connected", () =>{
-    console.log ("connected to MongoDB");
-});
-mongoose.connection.on ("error", (error) =>{
-    console.log("Connection Error: " + error);
-});
-mongoose.connection.on("disconnected",()=>{
-    console.log("Disconnected from MongoDB");
+mongoose.connection.on("connection",() => {
+    console.log("Connected to mongoDB");
 
 });
+mongoose.connection.on("eror", (error) => {
+    console.log("Connection Eror :" + error);
 
-//your db connection
+});
+mongoose.connection.on("disconnected", () => {
+    console.log("Disconnected From Mongodb");
+});
+// ... your db connection
+//letakkan di dalam file db.js
+
 require("./mahasiswa");
-
-

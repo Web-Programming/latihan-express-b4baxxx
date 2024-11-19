@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
+var mahasiswa = require('express');
+var router = mahasiswa.Router();
 
-const mhsController = require('../controllers/mahasiswa');
-router.get("/", mhsController.index); //list mahasiswa
-router.post("/insert", mhsController.insert); //insert mahasiswa
-router.patch("/update/:id", mhsController.update); //mengupdate mahasiswa
-router.get("/show/:id", mhsController.show); //show detail mahasiswa by id
-router.delete("/delete/:id", mhsController.destroy); //delete mahasiswa by id
+const mainController = require("../controllers/mahasiswa");
+/* GET home page. */
+router.get('/', mainController.mahasiswa);
+
+// buat route ke halaman kontak (/kontak) dgn method get
+router.get("/mahasiswa", mainController.mahasiswa);
+router.get("/mahasiswa2", mainController.mahasiswa);
 
 module.exports = router;
