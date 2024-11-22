@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housing-location';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { first } from 'rxjs';
+
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <article >
+     <article >
       <img class="listing-photo" [src]="housingLocation?.photo"
         alt="Exterior photo of {{housingLocation?.name}}"/>
       <section class="listing-description">
@@ -25,12 +25,13 @@ import { first } from 'rxjs';
           <li>Does this location have laundry: {{housingLocation?.laundry}}</li>
         </ul>
       </section>
-      <section class = "listing-apply">
-      <h2 class="section-heading>Aplly now to live hewe</h2>
-      <form [formGroup]="applyForm" (submit) >
-        <label for="first-name">First Name</label>
-        <input id="first-name" type="text" formControlName='firstName'>
-        </section>
+      <section class="listing-apply">
+        <h2 class="section-heading">Apply now to live here</h2>
+        <form [formGroup]="applyForm" (submit) = "submitApplication()">
+          <label for="first-name">First Name</label>
+          <input id="first-name" type="text" formControlName="firstName">
+        </form>
+      </section>
     </article>
   `,
   styleUrl: './details.component.css'
@@ -38,17 +39,17 @@ import { first } from 'rxjs';
 export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   housingLocationId = 0;
-  housingService: HousingService = inject(HousingService);
-  housingLocation: HousingLocation | undefined;
+  housingService: HousingService = inject (HousingService);
+  housingLocation : HousingLocation | undefined;
   applyForm = new FormGroup({
     firstName : new FormControl('')
-
   })
-
   constructor() {
     this.housingLocationId = Number(this.route.snapshot.params['id'])
-    this.housingLocation = this.housingService.getHousingLocationById(this.housingLocationId)
-    console.log(this.housingLocation)
+    this.housingService.getHousingLocationById(this.housingLocationId).then(housingLocation => {
+      this.housingLocation = housingLocation;
+    });
+    console.log(this.housingLocation);
   }
   submitApplication(){
     console.log(this.applyForm.value.firstName)
