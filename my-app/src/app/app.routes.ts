@@ -11,5 +11,10 @@ export const routes: Routes = [
         path:'details/:id',
         component: DetailsComponent,
         title:'Details Page'
+    },
+     {
+        path:'register/:id',
+        component: DetailsComponent,
+        title:'register Page'
     }
 ];
